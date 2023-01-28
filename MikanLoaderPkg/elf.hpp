@@ -1,0 +1,1 @@
+/home/hide1/workspace/mikanos/kernel/elf.hpp

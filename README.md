@@ -1,7 +1,1 @@
-# mikanos
-MikanOS: An Educational Operating System
-
-# Files
-
-- MikanLoaderPkg
-    - The MikanOS loader as a UEFI Application
+書籍「ゼロからの OS 自作入門」（ISBN：978-4-8399-7586-9）の MikanOS を写行するリポジトリ。

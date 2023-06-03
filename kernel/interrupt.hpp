@@ -2,16 +2,7 @@
 
 #include <array>
 #include <cstdint>
-
-enum class DescriptorType {
-  kUpper8Bytes    = 0,
-  kLDT            = 2,
-  kTSSAvailable   = 9,
-  kTSSBusy        = 11,
-  kCallGate       = 12,
-  kInterruptGate  = 14,
-  kTrapGate       = 15,
-};
+#include "x86_descriptor.hpp"
 
 union InterruptDescriptorAttribute {
   uint16_t data;
@@ -36,11 +27,11 @@ struct InterruptDescriptor {
 
 extern std::array<InterruptDescriptor, 256> idt;
 
-constexpr InterruptDescriptorAttribute
-MakeIDTAttr(DescriptorType type,
-            uint8_t descriptor_privilege_level,
-            bool present = true,
-            uint8_t interrupt_stack_table = 0) {
+constexpr InterruptDescriptorAttribute MakeIDTAttr(
+    DescriptorType type,
+    uint8_t descriptor_privilege_level,
+    bool present = true,
+    uint8_t interrupt_stack_table = 0) {
 
   InterruptDescriptorAttribute attr {};
   attr.bits.interrupt_stack_table = interrupt_stack_table;

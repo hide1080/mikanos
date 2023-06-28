@@ -76,7 +76,7 @@ class ArrayWrapper {
       return array_;
     }
 
-    ConstIterator cend() {
+    ConstIterator cend() const {
       return array_ + size_;
     }
 

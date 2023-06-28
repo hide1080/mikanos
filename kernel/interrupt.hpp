@@ -44,7 +44,7 @@ constexpr InterruptDescriptorAttribute MakeIDTAttr(
 void SetIDTEntry(InterruptDescriptor& desc,
                  InterruptDescriptorAttribute attr,
                  uint64_t offset,
-                 uint16_t setment_selector);
+                 uint16_t segment_selector);
 
 class InterruptVector {
   public:

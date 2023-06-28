@@ -89,7 +89,8 @@ void SwitchEhci2Xhci(const pci::Device& xhc_dev) {
     0xdc
   ); // USB3PRM
 
-  pci::WriteConfReg(xhc_dev,
+  pci::WriteConfReg(
+    xhc_dev,
     0xd8,
     superspeed_ports
   ); // USB3_PSSEN
@@ -198,7 +199,7 @@ extern "C" void KernelMainNewStack(
 
   SetupIdentityPageTable();
 
-::memory_manager = new(memory_manager_buf) BitmapMemoryManager;
+  ::memory_manager = new(memory_manager_buf) BitmapMemoryManager;
 
   const auto memory_map_base = reinterpret_cast<uintptr_t>(memory_map.buffer);
   uintptr_t available_end = 0;
@@ -275,7 +276,7 @@ extern "C" void KernelMainNewStack(
   // Intel製優先でxHCを探す
   pci::Device* xhc_dev = nullptr;
   for (int i = 0; i < pci::num_device; i++) {
-    if (pci::devices[i].class_code.Match(0xcU, 0x03U, 0x30U)) {
+    if (pci::devices[i].class_code.Match(0x0cU, 0x03U, 0x30U)) {
       xhc_dev = &pci::devices[i];
 
       if (0x8086 == pci::ReadVendorId(*xhc_dev)) {
@@ -395,7 +396,7 @@ extern "C" void KernelMainNewStack(
     main_queue.Pop();
     __asm__("sti");
 
-    switch ( (msg.type)) {
+    switch (msg.type) {
       case Message::kInterruptXHCI:
         while (xhc.PrimaryEventRing()->HasFront()) {
           if (auto err = ProcessEvent(xhc)) {

@@ -32,12 +32,12 @@ EFI_STATUS GetMemoryMap(struct MemoryMap* map) {
 const CHAR16* GetMemoryTypeUnicode(EFI_MEMORY_TYPE type) {
   switch (type) {
     case EfiReservedMemoryType: return L"EfiReservedMemoryType";
-    case EfiLoaderCode: return L"FfiLoaderCode";
-    case EfiLoaderData: return L"FfiLoaderData";
-    case EfiBootServicesCode: return L"EfiBootServiceCode";
-    case EfiBootServicesData: return L"EfiBootServiceData";
-    case EfiRuntimeServicesCode: return L"EfiRuntimeServiceCode";
-    case EfiRuntimeServicesData: return L"EfiRuntimeServiceData";
+    case EfiLoaderCode: return L"EfiLoaderCode";
+    case EfiLoaderData: return L"EfiLoaderData";
+    case EfiBootServicesCode: return L"EfiBootServicesCode";
+    case EfiBootServicesData: return L"EfiBootServicesData";
+    case EfiRuntimeServicesCode: return L"EfiRuntimeServicesCode";
+    case EfiRuntimeServicesData: return L"EfiRuntimeServicesData";
     case EfiConventionalMemory: return L"EfiConventionalMemory";
     case EfiUnusableMemory: return L"EfiUnusableMemory";
     case EfiACPIReclaimMemory: return L"EfiACPIReclaimMemory";
@@ -55,10 +55,9 @@ EFI_STATUS SaveMemoryMap(
   struct MemoryMap* map,
   EFI_FILE_PROTOCOL* file) {
 
-  EFI_STATUS status;
   CHAR8* header = "Index, Type, Type(name), PhysicalStart, NumberOfPages, Attribute\n";
   UINTN len = AsciiStrLen(header);
-  status = file->Write(file, &len, header);
+  EFI_STATUS status = file->Write(file, &len, header);
 
   if (EFI_ERROR(status)) {
     return status;
@@ -206,8 +205,8 @@ void CalcLoadAddressRange(
   for (Elf64_Half i = 0; i < ehdr->e_phnum; i++) {
     if (phdr[i].p_type != PT_LOAD)
       continue;
-      *first = MIN(*first, phdr[i].p_vaddr);
-      *last = MAX(*last, phdr[i].p_vaddr + phdr[i].p_memsz);
+    *first = MIN(*first, phdr[i].p_vaddr);
+    *last = MAX(*last, phdr[i].p_vaddr + phdr[i].p_memsz);
   }
 }
 
@@ -280,7 +279,7 @@ EFI_STATUS EFIAPI UefiMain(
       Halt();
     }
 
-    memmap_file->Close(memmap_file);
+    status = memmap_file->Close(memmap_file);
 
     if (EFI_ERROR(status)) {
       Print(L"failed to close memory map: %r\n", status);

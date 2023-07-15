@@ -25,6 +25,7 @@
 #include "pci.hpp"
 #include "queue.hpp"
 #include "segment.hpp"
+#include "timer.hpp"
 #include "usb/classdriver/mouse.hpp"
 #include "usb/device.hpp"
 #include "usb/memory.hpp"
@@ -66,7 +67,11 @@ void MouseObserver(int8_t displacement_x, int8_t displacement_y) {
     }
   );
 
+  StartLAPICTimer();
   layer_manager->Draw();
+  auto elapsed = LAPICTimerElapsed();
+  StopLAPICTimer();
+  printk("MouseObserver: elapsed = %u\n", elapsed);
 }
 
 void SwitchEhci2Xhci(const pci::Device& xhc_dev) {
@@ -162,6 +167,8 @@ extern "C" void KernelMainNewStack(
 
   printk("Welcome to MikanOS!\n");
   SetLogLevel(kDebug);
+
+  InitializeLAPICTimer();
 
   SetupSegments();
 

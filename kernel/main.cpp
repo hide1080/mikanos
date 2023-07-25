@@ -374,7 +374,8 @@ extern "C" void KernelMainNewStack(
 
   auto bgwindow = std::make_shared<Window>(
     kFrameWidth,
-    kFrameHeight
+    kFrameHeight,
+    frame_buffer_config.pixel_format
   );
   auto bgwriter = bgwindow->Writer();
 
@@ -383,13 +384,26 @@ extern "C" void KernelMainNewStack(
 
   auto mouse_window = std::make_shared<Window>(
     kMouseCursorWidth,
-    kMouseCursorHeight
+    kMouseCursorHeight,
+    frame_buffer_config.pixel_format
   );
   mouse_window->SetTransparentColor(kMouseTransparentColor);
   DrawMouseCursor(mouse_window->Writer(), { 0, 0 });
 
+  FrameBuffer screen;
+
+  if (auto err = screen.Initialize(frame_buffer_config)) {
+    Log(
+      kError,
+      "failed to initialized frame buffer: %s at %s:%d\n",
+      err.Name(),
+      err.File(),
+      err.Line()
+    );
+  }
+
   layer_manager = new LayerManager;
-  layer_manager->SetWriter(pixel_writer);
+  layer_manager->SetWriter(&screen);
 
   auto bglayer_id = layer_manager->NewLayer()
     .SetWindow(bgwindow)

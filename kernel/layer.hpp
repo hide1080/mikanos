@@ -35,8 +35,8 @@ class Layer {
     /** @brief 位置情報を指定された相対座標に更新する. 再描画しない. */
     Layer& MoveRelative(Vector2D<int> pos_diff);
 
-    /** @brief 指定されたwriterに現在のウィンドウの内容を描画する. */
-    void DrawTo(PixelWriter& writer) const;
+    /** @brief 指定された描画先にウィンドウの内容を描画する. */
+    void DrawTo(FrameBuffer& screen) const;
 
   private:
     unsigned int id_;
@@ -50,7 +50,7 @@ class Layer {
 class LayerManager {
   public:
     /** @brief 描画先を設定する. */
-    void SetWriter(PixelWriter* writer);
+    void SetWriter(FrameBuffer* screen);
 
     /**
      * @brief 新しいレイヤーを生成してその参照を返す.
@@ -81,7 +81,7 @@ class LayerManager {
     void Hide(unsigned int id);
 
   private:
-    PixelWriter* writer_{nullptr};
+    FrameBuffer* screen_{nullptr};
     std::vector<std::unique_ptr<Layer>> layers_{};
     std::vector<Layer*> layer_stack_{};
     unsigned int latest_id_{0};

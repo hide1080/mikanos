@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include "frame_buffer_config.hpp"
 
 struct PixelColor {
@@ -36,6 +37,26 @@ auto operator +(const Vector2D<T>& lhs, const Vector2D<U>& rhs)
   };
 }
 
+template <typename T>
+Vector2D<T> ElementMax(const Vector2D<T>& lhs, const Vector2D<T>& rhs) {
+  return {
+    std::max(lhs.x, rhs.x),
+    std::max(lhs.y, rhs.y)
+  };
+}
+
+template <typename T>
+Vector2D<T> ElementMin(const Vector2D<T>& lhs, const Vector2D<T>& rhs) {
+  return {
+    std::min(lhs.x, rhs.x),
+    std::min(lhs.y, rhs.y)
+  };
+}
+
+template <typename T>
+struct Rectangle {
+  Vector2D<int> pos, size;
+};
 
 class PixelWriter {
   public:

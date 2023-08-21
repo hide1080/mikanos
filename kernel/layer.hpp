@@ -25,9 +25,14 @@ class Layer {
 
     unsigned int ID() const;
 
+    /** @brief ウィンドウを設定する．既存のウィンドウは上書きされる． */
     Layer& SetWindow(const std::shared_ptr<Window>& window);
 
+    /** @brief ウィンドウを返す． */
     std::shared_ptr<Window> GetWindow() const;
+
+    /** @brief レイヤーの原点座標を返す． */
+    Vector2D<int> GetPosition() const;
 
     /** @brief 位置情報を指定された絶対座標に更新する. 再描画しない. */
     Layer& Move(Vector2D<int> pos);
@@ -36,7 +41,7 @@ class Layer {
     Layer& MoveRelative(Vector2D<int> pos_diff);
 
     /** @brief 指定された描画先にウィンドウの内容を描画する. */
-    void DrawTo(FrameBuffer& screen) const;
+    void DrawTo(FrameBuffer& screen, const Rectangle<int>& area) const;
 
   private:
     unsigned int id_;
@@ -59,12 +64,16 @@ class LayerManager {
      */
     Layer& NewLayer();
 
-    void Draw() const;
+    /** @brief 現在表示状態にあるレイヤーの指定された領域を描画する． */
+    void Draw(const Rectangle<int>& area) const;
 
-    /** @brief idで指定されたレイヤーの位置情報を、指定された絶対座標に更新する. 再描画しない. */
-    void Move(unsigned int id, Vector2D<int> new_position);
+    /** @brief 指定されたレイヤーが持つウィンドウの領域を描画する． */
+    void Draw(unsigned int id) const;
 
-    /** @brief idで指定されたレイヤーの位置情報を、指定された相対座標に更新する. 再描画しない. */
+    /** @brief idで指定されたレイヤーの位置情報を、指定された絶対座標に更新する. 再描画する. */
+    void Move(unsigned int id, Vector2D<int> new_pos);
+
+    /** @brief idで指定されたレイヤーの位置情報を、指定された相対座標に更新する. 再描画する. */
     void MoveRelative(unsigned int id, Vector2D<int> poss_diff);
 
     /**

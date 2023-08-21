@@ -62,47 +62,58 @@ class Window {
 
     Window& operator =(const Window& rhs) = delete;
 
-    /** 
+    /**
      * @brief 指定されたFrameBufferおよび位置にこのウィンドウの表示領域を描画する.
+     *
+     * @param dst 描画先
+     * @param pos dstの左上を基準としたウィンドウの位置
+     * @param area 描画対象領域
      */
-    void DrawTo(FrameBuffer& dst, Vector2D<int> position);
+    void DrawTo(FrameBuffer& dst,
+                Vector2D<int> pos,
+                const Rectangle<int>& area);
 
-    /** 
+    /**
      * @brief 透過色を設定する.
      */
     void SetTransparentColor(std::optional<PixelColor> c);
 
-    /** 
+    /**
      * @brief WindowWriterを取得する.
      */
     WindowWriter* Writer();
 
-    /** 
+    /**
      * @brief 指定された位置のピクセルを返す.
      */
     const PixelColor& At(Vector2D<int> pos) const;
 
-    /** 
+    /**
      * @brief 指定された位置にピクセルを書き込む.
      */
     void Write(Vector2D<int> pos, PixelColor c);
 
-    /** 
+    /**
      * @brief 平面描画領域の横幅をピクセル単位で返す.
      */
     int Width() const;
 
-    /** 
+    /**
      * @brief 平面描画領域の高さをピクセル単位で返す.
      */
     int Height() const;
 
     /**
+     * @brief 平面描画領域のサイズをピクセル単位で返す.
+     */
+    Vector2D<int> Size() const;
+
+    /**
      * @brief 平面描画領域内で矩形領域を移動する.
-     * 
-    * @param src_pos   移動元矩形の原点
-    * @param src_size  移動元矩形の大きさ
-    * @param dst_pos   移動先の原点
+     *
+     * @param src_pos   移動元矩形の原点
+     * @param src_size  移動元矩形の大きさ
+     * @param dst_pos   移動先の原点
      */
     void Move(Vector2D<int> dst_pos, const Rectangle<int>& src);
 

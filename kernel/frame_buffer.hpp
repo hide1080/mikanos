@@ -20,6 +20,10 @@ class FrameBuffer {
       return *writer_;
     }
 
+    const FrameBufferConfig& Config() const {
+      return config_;
+    }
+
   private:
     FrameBufferConfig config_{};
     std::vector<uint8_t> buffer_{};

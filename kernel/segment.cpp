@@ -75,3 +75,9 @@ void SetupSegments() {
     reinterpret_cast<uintptr_t>(&gdt[0])
   );
 }
+
+void InitializeSegmentation() {
+  SetupSegments();
+  SetDSAll(kKernelDS);
+  SetCSSS(kKernelCS, kKernelSS);
+}

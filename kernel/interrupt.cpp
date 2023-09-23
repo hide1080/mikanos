@@ -1,9 +1,3 @@
-/**
- * @file interrupt.cpp
- * 
- * 割り込み関係.
- */
-
 #include "asmfunc.h"
 #include "interrupt.hpp"
 #include "segment.hpp"

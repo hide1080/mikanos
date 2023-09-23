@@ -1,9 +1,3 @@
-/**
- * @file logger.cpp
- *
- * ログ関係.
- */
- 
 #include <cstddef>
 #include <cstdio>
 #include "console.hpp"

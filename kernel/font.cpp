@@ -1,9 +1,3 @@
-/**
- * @file font.cpp
- *
- * フォント関係.
- */
-
  #include "font.hpp"
 
 extern const uint8_t _binary_hankaku_bin_start;

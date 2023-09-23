@@ -1,9 +1,3 @@
-/**
- * @file graphics.cpp
- *
- * 画像関係.
- */
-
 #include "graphics.hpp"
 
 void RGBResv8BitPerColorPixelWriter::Write(Vector2D<int> pos,

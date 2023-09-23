@@ -1,3 +1,9 @@
+/**
+ * @file graphics.hpp
+ *
+ * 画像関係.
+ */
+
 #pragma once
 
 #include <algorithm>

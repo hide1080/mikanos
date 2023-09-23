@@ -1,8 +1,3 @@
-/**
- * @file
- * セグメント関連.
- */
-
 #include "asmfunc.h"
 #include "segment.hpp"
 

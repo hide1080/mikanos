@@ -1,3 +1,9 @@
+/**
+ * @file font.hpp
+ *
+ * フォント関係.
+ */
+
 #pragma once
 
 #include <cstdint>

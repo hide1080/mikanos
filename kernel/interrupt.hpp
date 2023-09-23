@@ -1,3 +1,9 @@
+/**
+ * @file interrupt.hpp
+ * 
+ * 割り込み関係.
+ */
+
 #pragma once
 
 #include <array>

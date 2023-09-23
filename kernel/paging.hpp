@@ -1,3 +1,9 @@
+/**
+ * @file paging.hpp
+ * 
+ * ページング関連.
+ */
+
 #pragma once
 
 #include <cstddef>

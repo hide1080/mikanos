@@ -1,9 +1,3 @@
-/**
- * @file console.cpp
- *
- * コンソール関係.
- */
-
 #include <cstring>
 
 #include "console.hpp"

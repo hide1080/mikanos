@@ -1,3 +1,9 @@
+/**
+ * @file segment.hpp
+ * 
+ * セグメント関連.
+ */
+
 #pragma once
 
 #include <array>

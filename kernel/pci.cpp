@@ -1,9 +1,3 @@
-/**
- * @file pci.cpp
- *
- * PCIバス関係.
- */
-
 #include "asmfunc.h"
 #include "pci.hpp"
 #include "logger.hpp"

@@ -1,3 +1,9 @@
+/**
+ * @file logger.hpp
+ *
+ * ログ関係.
+ */
+ 
 #pragma once
 
 enum LogLevel {

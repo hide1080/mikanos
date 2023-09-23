@@ -1,3 +1,9 @@
+/**
+ * @file console.hpp
+ *
+ * コンソール関係.
+ */
+
 #pragma once
 
 #include <memory>

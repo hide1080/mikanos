@@ -1,8 +1,3 @@
-/**
- * @file
- * ページング関連.
- */
-
 #include <array>
 #include "asmfunc.h"
 #include "paging.hpp"

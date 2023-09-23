@@ -1,3 +1,9 @@
+/**
+ * @file pci.hpp
+ *
+ * PCIバス関係.
+ */
+
 #pragma once
 
 #include <cstdint>

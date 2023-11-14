@@ -4,7 +4,6 @@
  * カーネル本体.
  */
 
-#include <array>
 #include <cstddef>
 #include <cstdint>
 #include <cstdio>
@@ -31,6 +30,7 @@
 #include "paging.hpp"
 #include "pci.hpp"
 #include "segment.hpp"
+#include "task.hpp"
 #include "timer.hpp"
 #include "usb/xhci/xhci.hpp"
 #include "window.hpp"
@@ -191,16 +191,6 @@ void InitializeTaskBWindow() {
   );
 }
 
-struct TaskContext {
-  uint64_t cr3, rip, rflags, reserved1; // offset 0x00
-  uint64_t cs, ss, fs, gs; // offset 0x20
-  uint64_t rax, rbx, rcx, rdx, rdi, rsi, rsp, rbp; // offset 0x40
-  uint64_t r8, r9, r10, r11, r12, r13, r14, r15; // offset 0x80
-  std::array<uint8_t, 512> fxsave_area; // offset 0xc0
-} __attribute__((packed));
-
-alignas(16) TaskContext task_b_ctx, task_a_ctx;
-
 void TaskB(int task_id, int data) {
 
   printk(
@@ -231,8 +221,6 @@ void TaskB(int task_id, int data) {
     );
 
     layer_manager->Draw(task_b_window_layer_id);
-
-    SwitchContext(&task_a_ctx, &task_b_ctx);
   }
 }
 
@@ -287,7 +275,7 @@ extern "C" void KernelMainNewStack(
   memset(&task_b_ctx, 0, sizeof(task_b_ctx));
   task_b_ctx.rip = reinterpret_cast<uint64_t>(TaskB);
   task_b_ctx.rdi = 1;
-  task_b_ctx.rsi = 42;
+  task_b_ctx.rsi = 43;
 
   task_b_ctx.cr3 = GetCR3();
   task_b_ctx.rflags = 0x202;
@@ -297,6 +285,8 @@ extern "C" void KernelMainNewStack(
 
   // MXCSRSの全ての例外をマスクする
   *reinterpret_cast<uint32_t*>(&task_b_ctx.fxsave_area[24]) = 0x1f80;
+
+  InitializeTask();
 
   char str[128];
 
@@ -323,8 +313,7 @@ extern "C" void KernelMainNewStack(
 
     __asm__("cli");
     if (main_queue->size() == 0) {
-      __asm__("sti");
-      SwitchContext(&task_b_ctx, &task_a_ctx);
+      __asm__("sti\n\thlt");
       continue;
     }
 

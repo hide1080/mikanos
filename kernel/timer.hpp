@@ -6,7 +6,7 @@
 #include <vector>
 #include "message.hpp"
 
-void InitializeLAPICTimer(std::deque<Message>& msg_queue);
+void InitializeLAPICTimer();
 
 void StartLAPICTimer();
 
@@ -40,7 +40,7 @@ inline bool operator <(const Timer& lhs, const Timer& rhs) {
 
 class TimerManager {
   public:
-    TimerManager(std::deque<Message>& msg_queue);
+    TimerManager();
 
     void AddTimer(const Timer& timer);
 
@@ -53,7 +53,6 @@ class TimerManager {
   private:
     volatile unsigned long tick_{0};
     std::priority_queue<Timer> timers_{};
-    std::deque<Message>& msg_queue_;
 };
 
 extern TimerManager* timer_manager;

@@ -4,7 +4,7 @@
  * タスク管理、コンテキストスイッチ関連.
 */
 
-#pragma
+#pragma once
 
 #include <array>
 #include <cstddef>

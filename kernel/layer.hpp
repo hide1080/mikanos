@@ -76,6 +76,9 @@ class LayerManager {
     /** @brief 指定されたレイヤーが持つウィンドウの領域を描画する． */
     void Draw(unsigned int id) const;
 
+    /** @brief 指定されたレイヤーが持つウィンドウの指定された範囲を描画する． */
+    void Draw(unsigned int id, Rectangle<int> area) const;
+
     /** @brief idで指定されたレイヤーの位置情報を、指定された絶対座標に更新する. 再描画する. */
     void Move(unsigned int id, Vector2D<int> new_pos);
 
@@ -141,3 +144,19 @@ extern ActiveLayer* active_layer;
 
 void InitializeLayer();
 void ProcessLayerMessage(const Message& msg);
+
+constexpr Message MakeLayerMessage(uint64_t task_id,
+                                   unsigned int layer_id,
+                                   LayerOperation op,
+                                   const Rectangle<int>& area) {
+
+  Message msg{Message::kLayer, task_id};
+  msg.arg.layer.layer_id = layer_id;
+  msg.arg.layer.op = op;
+  msg.arg.layer.x = area.pos.x;
+  msg.arg.layer.y = area.pos.y;
+  msg.arg.layer.w = area.size.x;
+  msg.arg.layer.h = area.size.y;
+
+  return msg;
+}

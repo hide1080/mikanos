@@ -22,7 +22,7 @@ class Terminal {
       return layer_id_;
     }
 
-    void BlinkCursor();
+    Rectangle<int> BlinkCursor();
 
   private:
     std::shared_ptr<ToplevelWindow> window_;

@@ -15,6 +15,7 @@
 class Terminal {
   public:
     static const int kRows = 15, kColumns = 60;
+    static const int kLineMax = 128;
 
     Terminal();
 
@@ -24,6 +25,10 @@ class Terminal {
 
     Rectangle<int> BlinkCursor();
 
+    Rectangle<int> InputKey(uint8_t modifire,
+                            uint8_t keycode,
+                            char ascii);
+
   private:
     std::shared_ptr<ToplevelWindow> window_;
     unsigned int layer_id_;
@@ -31,6 +36,11 @@ class Terminal {
     Vector2D<int> cursor_{0, 0};
     bool cursor_visible_{false};
     void DrawCursor(bool visible);
+    Vector2D<int> CalcCursorPos() const;
+
+    int linebuf_index_{0};
+    std::array<char, kLineMax> linebuf_{};
+    void Scroll1();
 };
 
 void TaskTerminal(uint64_t task_id, int64_t data);

@@ -89,7 +89,6 @@ class TaskManager {
   private:
     std::vector<std::unique_ptr<Task>> tasks_{};
     uint64_t latest_id_{0};
-    size_t current_task_index_{0};
     std::array<std::deque<Task*>, kMaxLevel + 1> running_{};
     int current_level_{kMaxLevel};
     bool level_changed_{false};

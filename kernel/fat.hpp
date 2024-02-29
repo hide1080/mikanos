@@ -71,6 +71,8 @@ namespace fat {
 
   extern BPB* boot_volume_image;
 
+  extern unsigned long bytes_per_cluster;
+
   void Initialize(void* volume_image);
 
   /**
@@ -100,5 +102,28 @@ namespace fat {
    * @param ext ファイル名の拡張子（4バイト以上の配列）
    */
   void ReadName(const DirectoryEntry& entry, char* base, char* ext);
+
+  static const unsigned long kEndOfClusterchain = 0x0ffffffflu;
+  static const unsigned long kBeforeEndOfClusterchain = 0x0ffffff8ul;
+
+  /**
+   * @brief 指定されたクラスタの次のクラスタ番号を返す.
+   * 
+   * @param cluster クラスタ番号
+   * @param base ファイル名の拡張子より前の部分（9バイト以上の配列）
+   * @return 次のクラスタ番号（無い場合kEndOfClusterchain）
+   */
+  unsigned long NextCluster(unsigned long cluster);
+
+  /**
+   * @brief 指定されたディレクトリからファイルを返す.
+   * 
+   * @param name 8+3形式のファイル名（大文字小文字は区別しない）
+   * @param directory_cluster ディレクトリの開始クラスタ（省略した場合ルートディレクトリから検索する）
+   * @return ファイルを表すエントリ. 見つからない場合nullptr
+   */
+  DirectoryEntry* FindFile(const char* name, unsigned long directory_cluster = 0);
+
+  bool NameIsEqual(const DirectoryEntry& entry, const char* name);
 
 } // namespace fat

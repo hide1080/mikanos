@@ -81,6 +81,7 @@
     "hash_map": "cpp",
     "hash_set": "cpp",
     "thread": "cpp",
-    "cinttypes": "cpp"
+    "cinttypes": "cpp",
+    "filesystem": "cpp"
   }
 }

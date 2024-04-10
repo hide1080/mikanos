@@ -44,7 +44,7 @@ class Terminal {
     void Scroll1();
 
     void ExecuteLine();
-    void ExecuteFile(const fat::DirectoryEntry& file_entry,
+    Error ExecuteFile(const fat::DirectoryEntry& file_entry,
                      char* command,
                      char* first_arg);
 

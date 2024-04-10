@@ -27,8 +27,10 @@ class Error {
       kUnknownXHCISpeedID,
       kNoWaiter,
       kNoPCIMSI,
-      kNoSuchTask,
       kUnknownPixelFormat,
+      kNoSuchTask,
+      kInvalidFormat,
+      kFrameTooSmall,
       kLastOfCode, // 常に最後に
     };
 
@@ -57,6 +59,8 @@ class Error {
       "kNoPCIMSI",
       "kUnknownPixelFormat",
       "kNoSuchTask",
+      "kInvalidFormat",
+      "kFrameTooSmall",
     };
     static_assert(Error::Code::kLastOfCode == code_names_.size());
 

@@ -2,7 +2,7 @@
 #include "segment.hpp"
 
 namespace {
-  std::array<SegmentDescriptor, 3> gdt;
+  std::array<SegmentDescriptor, 5> gdt;
 }
 
 void SetCodeSegment(SegmentDescriptor& desc,
@@ -61,6 +61,22 @@ void SetupSegments() {
     gdt[2],
     DescriptorType::kReadWrite,
     0,
+    0,
+    0xfffff
+  );
+
+  SetCodeSegment(
+    gdt[3],
+    DescriptorType::kExecuteRead,
+    3,
+    0,
+    0xfffff
+  );
+
+  SetDataSegment(
+    gdt[4],
+    DescriptorType::kReadWrite,
+    3,
     0,
     0xfffff
   );

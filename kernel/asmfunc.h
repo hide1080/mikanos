@@ -23,10 +23,16 @@ extern "C" {
 
   void SwitchContext(void* next_ctx, void* current_ctx);
 
+  void RestoreContext(void* ctx);
+
   void CallApp(int argc,
                char** argv,
                uint16_t cs,
                uint16_t ss,
                uint64_t rip,
                uint64_t rsp);
+
+  void IntHandlerLAPICTimer();
+
+  void LoadTR(uint16_t sel);
 }

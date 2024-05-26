@@ -561,8 +561,8 @@ Error Terminal::ExecuteFile(const fat::DirectoryEntry& file_entry,
   CallApp(
     argc.value,
     argv,
-    3 << 3 | 3,
     4 << 3 | 3,
+    3 << 3 | 3,
     entry_addr,
     stack_frame_addr.value + 4096 - 8
   );

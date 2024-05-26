@@ -88,17 +88,17 @@ void SetupSegments() {
     0xfffff
   );
 
-  SetCodeSegment(
+  SetDataSegment(
     gdt[3],
-    DescriptorType::kExecuteRead,
+    DescriptorType::kReadWrite,
     3,
     0,
     0xfffff
   );
 
-  SetDataSegment(
+  SetCodeSegment(
     gdt[4],
-    DescriptorType::kReadWrite,
+    DescriptorType::kExecuteRead,
     3,
     0,
     0xfffff

@@ -25,12 +25,12 @@ extern "C" {
 
   void RestoreContext(void* ctx);
 
-  void CallApp(int argc,
-               char** argv,
-               uint16_t cs,
-               uint16_t ss,
-               uint64_t rip,
-               uint64_t rsp);
+  int CallApp(int argc,
+              char** argv,
+              uint16_t ss,
+              uint64_t rip,
+              uint64_t rsp,
+              uint64_t* os_stack_ptr);
 
   void IntHandlerLAPICTimer();
 

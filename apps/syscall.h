@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <cstdint>
 #include "../kernel/logger.hpp"
 
@@ -13,5 +14,7 @@ extern "C" {
   SyscallResult SyscallPutString(int fd, char* s, size_t len);
 
   void SyscallExit(int exit_code);
+
+  SyscallResult SyscallOpenWindow(int w, int h, int x, int y, const char* s);
 
 } // extern "C"

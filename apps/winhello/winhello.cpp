@@ -1,6 +1,35 @@
 #include "../syscall.h"
 
 extern "C" void main(int argc, char** argv) {
-  SyscallOpenWindow(200, 100, 10, 10, "winhello");
+  auto [layer_id, err_openwin] = SyscallOpenWindow(
+    200,
+    100,
+    10,
+    10,
+    "winhello"
+  );
+
+  SyscallWinWriteString(
+    layer_id,
+    7,
+    24,
+    0xc00000,
+    "Hello World!"
+  );
+  SyscallWinWriteString(
+    layer_id,
+    24,
+    40,
+    0x00c000,
+    "Hello World!"
+  );
+  SyscallWinWriteString(
+    layer_id,
+    40,
+    56,
+    0x0000c0,
+    "Hello World!"
+  );
+
   SyscallExit(0);
 }

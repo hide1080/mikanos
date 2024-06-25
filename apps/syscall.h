@@ -9,12 +9,25 @@ extern "C" {
     int error;
   };
 
-  SyscallResult SyscallLogString(LogLevel level, const char* message);
+  SyscallResult SyscallLogString(LogLevel level,
+                                 const char* message);
 
-  SyscallResult SyscallPutString(int fd, char* s, size_t len);
+  SyscallResult SyscallPutString(int fd,
+                                 char* s,
+                                 size_t len);
 
   void SyscallExit(int exit_code);
 
-  SyscallResult SyscallOpenWindow(int w, int h, int x, int y, const char* s);
+  SyscallResult SyscallOpenWindow(int w,
+                                  int h,
+                                  int x,
+                                  int y,
+                                  const char* s);
+
+  SyscallResult SyscallWinWriteString(unsigned int layer_id,
+                                      int x,
+                                      int y,
+                                      uint32_t color,
+                                      const char* s);
 
 } // extern "C"

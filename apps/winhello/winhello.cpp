@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include "../syscall.h"
 
 extern "C" void main(int argc, char** argv) {
@@ -8,6 +9,10 @@ extern "C" void main(int argc, char** argv) {
     10,
     "winhello"
   );
+
+  if (err_openwin) {
+    exit(err_openwin);
+  }
 
   SyscallWinWriteString(
     layer_id,
@@ -31,5 +36,5 @@ extern "C" void main(int argc, char** argv) {
     "Hello World!"
   );
 
-  SyscallExit(0);
+  exit(0);
 }

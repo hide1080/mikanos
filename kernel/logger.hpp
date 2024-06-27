@@ -16,10 +16,10 @@ enum LogLevel {
 /**
  * グローバルなログ優先度のしきい値を設定する.
  */
-void SetLogLevel(LogLevel level);
+void SetLogLevel(enum LogLevel level);
 
 /**
  * 指定された優先度でログを記録する.
  * 優先度がしきい値未満ならばログは記録されない.
  */
-int Log(LogLevel level, const char* format, ...);
+int Log(enum LogLevel level, const char* format, ...);

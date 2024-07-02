@@ -43,6 +43,8 @@ extern "C" {
                                                int h,
                                                uint32_t color);
 
+  struct SyscallResult SyscallGetCurrentTick();
+
 #ifdef __cplusplus
 } // extern "C"
 #endif

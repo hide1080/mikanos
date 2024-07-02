@@ -36,6 +36,13 @@ extern "C" {
                                              uint32_t color,
                                              const char* s);
 
+  struct SyscallResult SyscallWinFillRectangle(unsigned int layer_id,
+                                               int x,
+                                               int y,
+                                               int w,
+                                               int h,
+                                               uint32_t color);
+
 #ifdef __cplusplus
 } // extern "C"
 #endif

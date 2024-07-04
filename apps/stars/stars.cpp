@@ -18,7 +18,7 @@ extern "C" void main(int argc, char** argv) {
   }
 
   SyscallWinFillRectangle(
-    layer_id,
+    layer_id | LAYER_NO_REDRAW,
     4,
     24,
     kWidth,
@@ -41,7 +41,7 @@ extern "C" void main(int argc, char** argv) {
     int x = x_dist(rand_engine);
     int y = y_dist(rand_engine);
     SyscallWinFillRectangle(
-      layer_id,
+      layer_id | LAYER_NO_REDRAW,
       4 + x,
       24 + y,
       2,
@@ -49,6 +49,8 @@ extern "C" void main(int argc, char** argv) {
       0xfff100
     );
   }
+
+  SyscallWinRedraw(layer_id);
 
   auto tick_end = SyscallGetCurrentTick();
   printf(

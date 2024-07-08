@@ -56,6 +56,8 @@ extern "C" {
                                           int y1,
                                           uint32_t color);
 
+  struct SyscallResult SyscallCloseWindow(uint64_t layer_id_flags);
+
 #ifdef __cplusplus
 } // extern "C"
 #endif

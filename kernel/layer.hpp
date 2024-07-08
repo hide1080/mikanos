@@ -70,6 +70,9 @@ class LayerManager {
      */
     Layer& NewLayer();
 
+    /** @brief 指定されたレイヤーを削除する. */
+    void RemoveLayer(unsigned int id);
+
     /** @brief 現在表示状態にあるレイヤーの指定された領域を描画する． */
     void Draw(const Rectangle<int>& area) const;
 

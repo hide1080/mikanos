@@ -36,5 +36,6 @@ extern "C" void main(int argc, char** argv) {
     "Hello World!"
   );
 
+  SyscallCloseWindow(layer_id);
   exit(0);
 }

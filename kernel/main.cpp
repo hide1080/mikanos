@@ -203,9 +203,13 @@ extern "C" void KernelMainNewStack(
   acpi::Initialize(acpi_table);
   InitializeLAPICTimer();
 
-  const int kTextboxCurorTimer = 1;
+  const int kTextboxCursorTimer = 1;
   const int kTimer05Sec = static_cast<int>(kTimerFreq * 0.5);
-  timer_manager->AddTimer(Timer{kTimer05Sec, kTextboxCurorTimer});
+  timer_manager->AddTimer(Timer {
+    kTimer05Sec,
+    kTextboxCursorTimer,
+    1
+  });
   bool textbox_cursor_visible = false;;
 
   InitializeSyscall();
@@ -260,12 +264,13 @@ extern "C" void KernelMainNewStack(
         usb::xhci::ProcessEvents();
         break;
       case Message::kTimerTimeout:
-        if (msg->arg.timer.value == kTextboxCurorTimer) {
+        if (msg->arg.timer.value == kTextboxCursorTimer) {
           __asm__("cli");
           timer_manager->AddTimer(
             Timer {
               msg->arg.timer.timeout + kTimer05Sec,
-              kTextboxCurorTimer
+              kTextboxCursorTimer,
+              1
             }
           );
           __asm__("sti");

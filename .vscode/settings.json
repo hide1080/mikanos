@@ -83,6 +83,7 @@
     "thread": "cpp",
     "cinttypes": "cpp",
     "filesystem": "cpp",
-    "__memory": "cpp"
+    "__memory": "cpp",
+    "csignal": "cpp"
   }
 }

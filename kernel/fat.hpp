@@ -104,6 +104,15 @@ namespace fat {
    */
   void ReadName(const DirectoryEntry& entry, char* base, char* ext);
 
+  /**
+   * @brief ディレクトリエントリの短名をdestにコピーする.
+   * 短名の拡張子が空なら"<base>"を、空でなければ"<base>.<ext>"をコピーする.
+   * 
+   * @param entry ファイル名の取得元のディレクトリエントリ
+   * @param dest 基本名と拡張子を結合した文字列を格納するに十分な大きさの配列
+   */
+  void FormatName(const DirectoryEntry& entry, char* dest);
+
   static const unsigned long kEndOfClusterchain = 0x0ffffffflu;
   static const unsigned long kBeforeEndOfClusterchain = 0x0ffffff8ul;
 
@@ -123,7 +132,9 @@ namespace fat {
    * @param directory_cluster ディレクトリの開始クラスタ（省略した場合ルートディレクトリから検索する）
    * @return ファイルを表すエントリ. 見つからない場合nullptr
    */
-  DirectoryEntry* FindFile(const char* name, unsigned long directory_cluster = 0);
+  std::pair<DirectoryEntry*, bool>
+  FindFile(const char* path,
+           unsigned long directory_cluster = 0);
 
   bool NameIsEqual(const DirectoryEntry& entry, const char* name);
 

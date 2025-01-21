@@ -72,6 +72,9 @@ extern "C" {
                                        void* buf,
                                        size_t count);
 
+  struct SyscallResult SyscallDemandPages(size_t num_pages,
+                                          int flags);
+
 #ifdef __cplusplus
 } // extern "C"
 #endif

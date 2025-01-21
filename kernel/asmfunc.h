@@ -17,6 +17,8 @@ extern "C" {
 
   void SetDSAll(uint16_t value);
 
+  uint64_t GetCR2();
+
   void SetCR3(uint64_t value);
 
   uint64_t GetCR3();

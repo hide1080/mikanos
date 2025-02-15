@@ -75,6 +75,9 @@ extern "C" {
   struct SyscallResult SyscallDemandPages(size_t num_pages,
                                           int flags);
 
+  struct SyscallResult SyscallMapFile(int fd,
+                                       size_t* file_size,
+                                       int flags);
 #ifdef __cplusplus
 } // extern "C"
 #endif

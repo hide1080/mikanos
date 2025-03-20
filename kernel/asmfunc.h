@@ -17,6 +17,10 @@ extern "C" {
 
   void SetDSAll(uint16_t value);
 
+  uint64_t GetCR0();
+
+  void SetCR0(uint64_t value);
+
   uint64_t GetCR2();
 
   void SetCR3(uint64_t value);
@@ -43,4 +47,6 @@ extern "C" {
   void SyscallEntry(void);
 
   void ExitApp(uint64_t rsp, int32_t ret_val);
+
+  void InvalidateTLB(uint64_t addr);
 }

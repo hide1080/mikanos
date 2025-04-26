@@ -7,8 +7,11 @@
 #pragma once
 
 #include <cstdint>
+#include <ft2build.h>
+#include FT_FREETYPE_H
 #include <utility>
-#include"graphics.hpp"
+#include "error.hpp"
+#include "graphics.hpp"
 
 void WriteAscii(PixelWriter& writer,
                 Vector2D<int> pos,
@@ -26,7 +29,11 @@ std::pair<char32_t, int> ConvertUTF8To32(const char* u8);
 
 bool IsHankaku(char32_t c);
 
-void WriteUnicode(PixelWriter& writer,
+WithError<FT_Face> NewFTFace();
+
+Error WriteUnicode(PixelWriter& writer,
                   Vector2D<int> pos,
                   char32_t c,
                   const PixelColor& color);
+
+void InitializeFont();

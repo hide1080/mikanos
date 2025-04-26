@@ -574,9 +574,10 @@ Error Terminal::ExecuteFile(fat::DirectoryEntry& file_entry,
     return argc.error;
   }
 
-  LinearAddress4Level stack_frame_addr{0xffff'ffff'ffff'e000};
+  const int stack_size = 8 * 4096;
+  LinearAddress4Level stack_frame_addr{0xffff'ffff'ffff'f000 - stack_size};
 
-  if (auto err = SetupPageMaps(stack_frame_addr, 1)) {
+  if (auto err = SetupPageMaps(stack_frame_addr, stack_size / 4096)) {
     return err;
   }
 
@@ -593,14 +594,14 @@ Error Terminal::ExecuteFile(fat::DirectoryEntry& file_entry,
   task.SetDPagingBegin(elf_next_page);
   task.SetDPagingEnd(elf_next_page);
 
-  task.SetFileMapEnd(0xffff'ffff'ffff'e000);
+  task.SetFileMapEnd(stack_frame_addr.value);
 
   int ret = CallApp(
     argc.value,
     argv,
     3 << 3 | 3,
     app_load.entry,
-    stack_frame_addr.value + 4096 - 8,
+    stack_frame_addr.value + stack_size - 8,
     &task.OSStackPointer()
   );
 
@@ -644,7 +645,7 @@ void Terminal::Print(char32_t c) {
       c,
       {255, 255, 255}
     );
-    ++cursor_.x;
+    cursor_.x++;
   } else {
     if (cursor_.x >= kColumns - 1) {
       newline();

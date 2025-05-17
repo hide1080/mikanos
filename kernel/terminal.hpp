@@ -66,9 +66,9 @@ class Terminal {
 
     void ExecuteLine();
 
-    Error ExecuteFile(fat::DirectoryEntry& file_entry,
-                     char* command,
-                     char* first_arg);
+    WithError<int> ExecuteFile(fat::DirectoryEntry& file_entry,
+                               char* command,
+                               char* first_arg);
 
     void Print(char32_t c);
 
@@ -78,6 +78,7 @@ class Terminal {
 
     bool show_window_;
     std::array<std::shared_ptr<FileDescriptor>, 3> files_;
+    int last_exit_code_{0};
 };
 
 void TaskTerminal(uint64_t task_id, int64_t data);

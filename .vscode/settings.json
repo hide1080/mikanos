@@ -84,6 +84,8 @@
     "cinttypes": "cpp",
     "filesystem": "cpp",
     "__memory": "cpp",
-    "csignal": "cpp"
+    "csignal": "cpp",
+    "regex": "cpp",
+    "shared_mutex": "cpp"
   }
 }

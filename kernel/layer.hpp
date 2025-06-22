@@ -164,3 +164,5 @@ constexpr Message MakeLayerMessage(uint64_t task_id,
 
   return msg;
 }
+
+Error CloseLayer(unsigned int layer_id);

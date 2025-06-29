@@ -222,7 +222,7 @@ std::tuple<bool, int> WaitEvent(int h) {
   AppEvent events[1];
 
   while (true) {
-    auto [n, err ] = SyscallReadEvent(events, 1);
+    auto [ n, err ] = SyscallReadEvent(events, 1);
 
     if (err) {
       fprintf(
